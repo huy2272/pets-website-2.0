@@ -50,7 +50,8 @@ const mockPets: Pet[] = [
     description:
       "Luna is a friendly and energetic Golden Retriever who loves playing fetch and swimming. She's great with kids and other dogs.",
     location: "San Francisco, CA",
-    image: "/placeholder.svg?height=300&width=400",
+    image:
+      "https://as1.ftcdn.net/v2/jpg/02/13/96/52/1000_F_213965280_VZZncwRZDWcfH2yX1glTdq34xiN4kzA5.jpg",
     personality: ["Friendly", "Energetic", "Loyal"],
   },
   {
@@ -64,7 +65,8 @@ const mockPets: Pet[] = [
     description:
       "Whiskers is a gentle giant who loves to cuddle and purr. He's very calm and would be perfect for a quiet home.",
     location: "Los Angeles, CA",
-    image: "/placeholder.svg?height=300&width=400",
+    image:
+      "https://as2.ftcdn.net/v2/jpg/02/64/15/41/1000_F_264154131_XvpBI5fARjB7Qlo4PMrMMTaunXha47NR.jpg",
     personality: ["Gentle", "Calm", "Affectionate"],
   },
   {
@@ -78,7 +80,8 @@ const mockPets: Pet[] = [
     description:
       "Buddy is a sweet and loyal companion who loves long walks and belly rubs. He's house-trained and knows basic commands.",
     location: "Austin, TX",
-    image: "/placeholder.svg?height=300&width=400",
+    image:
+      "https://as1.ftcdn.net/v2/jpg/04/75/59/24/1000_F_475592450_bKpm65G7vrJFLARGalKGTfJWr2ZGoZ4c.jpg",
     personality: ["Sweet", "Loyal", "Well-trained"],
   },
   {
@@ -92,7 +95,8 @@ const mockPets: Pet[] = [
     description:
       "Mittens is a playful kitten who loves toys and climbing. She's very social and gets along well with other cats.",
     location: "Seattle, WA",
-    image: "/placeholder.svg?height=300&width=400",
+    image:
+      "https://cdn12.picryl.com/photo/2016/12/31/ppt-backgrounds-cat-pets-animals-ac9d60-1024.jpg",
     personality: ["Playful", "Social", "Curious"],
   },
   {
@@ -106,7 +110,8 @@ const mockPets: Pet[] = [
     description:
       "Max is a protective and intelligent dog who would make an excellent guard dog. He's well-trained and very obedient.",
     location: "Denver, CO",
-    image: "/placeholder.svg?height=300&width=400",
+    image:
+      "https://as2.ftcdn.net/v2/jpg/01/99/00/79/1000_F_199007925_NolyRdRrdYqUAGdVZV38P4WX8pYfBaRP.jpg",
     personality: ["Protective", "Intelligent", "Obedient"],
   },
   {
@@ -120,7 +125,8 @@ const mockPets: Pet[] = [
     description:
       "Bella is an elegant Persian cat who enjoys quiet moments and gentle petting. She's perfect for someone looking for a calm companion.",
     location: "Miami, FL",
-    image: "/placeholder.svg?height=300&width=400",
+    image:
+      "https://as2.ftcdn.net/v2/jpg/00/85/95/79/1000_F_85957993_x6BN46mxasrRye2mp5rXFVrjAUE5LWF8.jpg",
     personality: ["Elegant", "Quiet", "Gentle"],
   },
 ];
