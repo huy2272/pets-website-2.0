@@ -1,37 +1,439 @@
-import Link from "next/link";
+"use client";
+import type React from "react";
 
-export default function HomePage() {
+import { useState } from "react";
+import { Button } from "src/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "src/components/ui/card";
+import { Badge } from "src/components/ui/badge";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "src/components/ui/dialog";
+import { Input } from "src/components/ui/input";
+import { Label } from "src/components/ui/label";
+import { Textarea } from "src/components/ui/textarea";
+import { Heart, MapPin, Calendar, User } from "lucide-react";
+
+interface Pet {
+  id: number;
+  name: string;
+  type: string;
+  breed: string;
+  age: string;
+  gender: string;
+  size: string;
+  description: string;
+  location: string;
+  image: string;
+  personality: string[];
+}
+
+const mockPets: Pet[] = [
+  {
+    id: 1,
+    name: "Luna",
+    type: "Dog",
+    breed: "Golden Retriever",
+    age: "2 years",
+    gender: "Female",
+    size: "Large",
+    description:
+      "Luna is a friendly and energetic Golden Retriever who loves playing fetch and swimming. She's great with kids and other dogs.",
+    location: "San Francisco, CA",
+    image: "/placeholder.svg?height=300&width=400",
+    personality: ["Friendly", "Energetic", "Loyal"],
+  },
+  {
+    id: 2,
+    name: "Whiskers",
+    type: "Cat",
+    breed: "Maine Coon",
+    age: "3 years",
+    gender: "Male",
+    size: "Large",
+    description:
+      "Whiskers is a gentle giant who loves to cuddle and purr. He's very calm and would be perfect for a quiet home.",
+    location: "Los Angeles, CA",
+    image: "/placeholder.svg?height=300&width=400",
+    personality: ["Gentle", "Calm", "Affectionate"],
+  },
+  {
+    id: 3,
+    name: "Buddy",
+    type: "Dog",
+    breed: "Labrador Mix",
+    age: "4 years",
+    gender: "Male",
+    size: "Medium",
+    description:
+      "Buddy is a sweet and loyal companion who loves long walks and belly rubs. He's house-trained and knows basic commands.",
+    location: "Austin, TX",
+    image: "/placeholder.svg?height=300&width=400",
+    personality: ["Sweet", "Loyal", "Well-trained"],
+  },
+  {
+    id: 4,
+    name: "Mittens",
+    type: "Cat",
+    breed: "Domestic Shorthair",
+    age: "1 year",
+    gender: "Female",
+    size: "Small",
+    description:
+      "Mittens is a playful kitten who loves toys and climbing. She's very social and gets along well with other cats.",
+    location: "Seattle, WA",
+    image: "/placeholder.svg?height=300&width=400",
+    personality: ["Playful", "Social", "Curious"],
+  },
+  {
+    id: 5,
+    name: "Max",
+    type: "Dog",
+    breed: "German Shepherd",
+    age: "5 years",
+    gender: "Male",
+    size: "Large",
+    description:
+      "Max is a protective and intelligent dog who would make an excellent guard dog. He's well-trained and very obedient.",
+    location: "Denver, CO",
+    image: "/placeholder.svg?height=300&width=400",
+    personality: ["Protective", "Intelligent", "Obedient"],
+  },
+  {
+    id: 6,
+    name: "Bella",
+    type: "Cat",
+    breed: "Persian",
+    age: "2 years",
+    gender: "Female",
+    size: "Medium",
+    description:
+      "Bella is an elegant Persian cat who enjoys quiet moments and gentle petting. She's perfect for someone looking for a calm companion.",
+    location: "Miami, FL",
+    image: "/placeholder.svg?height=300&width=400",
+    personality: ["Elegant", "Quiet", "Gentle"],
+  },
+];
+
+export default function PetsAdoption() {
+  const [selectedPet, setSelectedPet] = useState<Pet | null>(null);
+  const [isAdoptionFormOpen, setIsAdoptionFormOpen] = useState(false);
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    phone: "",
+    address: "",
+    city: "",
+    state: "",
+    zipCode: "",
+    experience: "",
+    reason: "",
+  });
+
+  const handleAdoptClick = (pet: Pet) => {
+    setSelectedPet(pet);
+    setIsAdoptionFormOpen(true);
+  };
+
+  const handleFormSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    // Here you would typically send the form data to your backend
+    alert(
+      `Thank you for your interest in adopting ${selectedPet?.name}! We'll contact you soon.`,
+    );
+    setIsAdoptionFormOpen(false);
+    setFormData({
+      firstName: "",
+      lastName: "",
+      email: "",
+      phone: "",
+      address: "",
+      city: "",
+      state: "",
+      zipCode: "",
+      experience: "",
+      reason: "",
+    });
+  };
+
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#2e026d] to-[#15162c] text-white">
-      <div className="container flex flex-col items-center justify-center gap-12 px-4 py-16">
-        <h1 className="text-5xl font-extrabold tracking-tight text-white sm:text-[5rem]">
-          Create <span className="text-[hsl(280,100%,70%)]">T3</span> App
-        </h1>
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:gap-8">
-          <Link
-            className="flex max-w-xs flex-col gap-4 rounded-xl bg-white/10 p-4 text-white hover:bg-white/20"
-            href="https://create.t3.gg/en/usage/first-steps"
-            target="_blank"
-          >
-            <h3 className="text-2xl font-bold">First Steps →</h3>
-            <div className="text-lg">
-              Just the basics - Everything you need to know to set up your
-              database and authentication.
+    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
+      {/* Header */}
+      <header className="border-b bg-white shadow-sm">
+        <div className="container mx-auto px-4 py-6">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center space-x-2">
+              <Heart className="h-8 w-8 text-red-500" />
+              <h1 className="text-2xl font-bold text-gray-900">PawsHome</h1>
             </div>
-          </Link>
-          <Link
-            className="flex max-w-xs flex-col gap-4 rounded-xl bg-white/10 p-4 text-white hover:bg-white/20"
-            href="https://create.t3.gg/en/introduction"
-            target="_blank"
-          >
-            <h3 className="text-2xl font-bold">Documentation →</h3>
-            <div className="text-lg">
-              Learn more about Create T3 App, the libraries it uses, and how to
-              deploy it.
-            </div>
-          </Link>
+            <nav className="hidden space-x-6 md:flex">
+              <a href="#" className="text-gray-600 hover:text-gray-900">
+                Home
+              </a>
+              <a href="#" className="text-gray-600 hover:text-gray-900">
+                About
+              </a>
+              <a href="#" className="text-gray-600 hover:text-gray-900">
+                Contact
+              </a>
+            </nav>
+          </div>
         </div>
-      </div>
-    </main>
+      </header>
+
+      {/* Hero Section */}
+      <section className="py-12 text-center">
+        <div className="container mx-auto px-4">
+          <h2 className="mb-4 text-4xl font-bold text-gray-900">
+            Find Your Perfect Companion
+          </h2>
+          <p className="mx-auto mb-8 max-w-2xl text-xl text-gray-600">
+            Give a loving home to pets in need. Browse our available animals and
+            find your new best friend today.
+          </p>
+        </div>
+      </section>
+
+      {/* Pets Grid */}
+      <section className="py-12">
+        <div className="container mx-auto px-4">
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {mockPets.map((pet) => (
+              <Card
+                key={pet.id}
+                className="overflow-hidden transition-shadow hover:shadow-lg"
+              >
+                <div className="aspect-video overflow-hidden">
+                  <img
+                    src={pet.image || "/placeholder.svg"}
+                    alt={pet.name}
+                    className="h-full w-full object-cover"
+                  />
+                </div>
+                <CardHeader>
+                  <div className="flex items-start justify-between">
+                    <div>
+                      <CardTitle className="text-xl">{pet.name}</CardTitle>
+                      <CardDescription className="text-sm text-gray-600">
+                        {pet.breed} • {pet.gender}
+                      </CardDescription>
+                    </div>
+                    <Badge variant="secondary">{pet.type}</Badge>
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  <div className="mb-4 space-y-2">
+                    <div className="flex items-center text-sm text-gray-600">
+                      <Calendar className="mr-2 h-4 w-4" />
+                      {pet.age}
+                    </div>
+                    <div className="flex items-center text-sm text-gray-600">
+                      <MapPin className="mr-2 h-4 w-4" />
+                      {pet.location}
+                    </div>
+                    <div className="flex items-center text-sm text-gray-600">
+                      <User className="mr-2 h-4 w-4" />
+                      {pet.size}
+                    </div>
+                  </div>
+                  <p className="mb-4 line-clamp-3 text-sm text-gray-700">
+                    {pet.description}
+                  </p>
+                  <div className="mb-4 flex flex-wrap gap-1">
+                    {pet.personality.map((trait) => (
+                      <Badge key={trait} variant="outline" className="text-xs">
+                        {trait}
+                      </Badge>
+                    ))}
+                  </div>
+                </CardContent>
+                <CardFooter>
+                  <Button
+                    onClick={() => handleAdoptClick(pet)}
+                    className="w-full bg-red-500 hover:bg-red-600"
+                  >
+                    <Heart className="mr-2 h-4 w-4" />
+                    Adopt {pet.name}
+                  </Button>
+                </CardFooter>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Adoption Form Dialog */}
+      <Dialog open={isAdoptionFormOpen} onOpenChange={setIsAdoptionFormOpen}>
+        <DialogContent className="max-h-[90vh] max-w-2xl overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle className="text-2xl">
+              Adopt {selectedPet?.name}
+            </DialogTitle>
+            <DialogDescription>
+              Please fill out this form to start the adoption process. We'll
+              review your application and contact you soon.
+            </DialogDescription>
+          </DialogHeader>
+
+          <form onSubmit={handleFormSubmit} className="space-y-6">
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+              <div className="space-y-2">
+                <Label htmlFor="firstName">First Name *</Label>
+                <Input
+                  id="firstName"
+                  name="firstName"
+                  value={formData.firstName}
+                  onChange={handleInputChange}
+                  required
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="lastName">Last Name *</Label>
+                <Input
+                  id="lastName"
+                  name="lastName"
+                  value={formData.lastName}
+                  onChange={handleInputChange}
+                  required
+                />
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+              <div className="space-y-2">
+                <Label htmlFor="email">Email *</Label>
+                <Input
+                  id="email"
+                  name="email"
+                  type="email"
+                  value={formData.email}
+                  onChange={handleInputChange}
+                  required
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="phone">Phone Number *</Label>
+                <Input
+                  id="phone"
+                  name="phone"
+                  type="tel"
+                  value={formData.phone}
+                  onChange={handleInputChange}
+                  required
+                />
+              </div>
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="address">Address *</Label>
+              <Input
+                id="address"
+                name="address"
+                value={formData.address}
+                onChange={handleInputChange}
+                required
+              />
+            </div>
+
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+              <div className="space-y-2">
+                <Label htmlFor="city">City *</Label>
+                <Input
+                  id="city"
+                  name="city"
+                  value={formData.city}
+                  onChange={handleInputChange}
+                  required
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="state">State *</Label>
+                <Input
+                  id="state"
+                  name="state"
+                  value={formData.state}
+                  onChange={handleInputChange}
+                  required
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="zipCode">Zip Code *</Label>
+                <Input
+                  id="zipCode"
+                  name="zipCode"
+                  value={formData.zipCode}
+                  onChange={handleInputChange}
+                  required
+                />
+              </div>
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="experience">Pet Experience</Label>
+              <Textarea
+                id="experience"
+                name="experience"
+                placeholder="Tell us about your experience with pets..."
+                value={formData.experience}
+                onChange={handleInputChange}
+                className="min-h-[100px]"
+              />
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="reason">
+                Why do you want to adopt {selectedPet?.name}? *
+              </Label>
+              <Textarea
+                id="reason"
+                name="reason"
+                placeholder="Tell us why you'd like to adopt this pet..."
+                value={formData.reason}
+                onChange={handleInputChange}
+                required
+                className="min-h-[100px]"
+              />
+            </div>
+
+            <div className="flex gap-4 pt-4">
+              <Button
+                type="button"
+                variant="outline"
+                onClick={() => setIsAdoptionFormOpen(false)}
+                className="flex-1"
+              >
+                Cancel
+              </Button>
+              <Button
+                type="submit"
+                className="flex-1 bg-red-500 hover:bg-red-600"
+              >
+                Submit Application
+              </Button>
+            </div>
+          </form>
+        </DialogContent>
+      </Dialog>
+    </div>
   );
 }
